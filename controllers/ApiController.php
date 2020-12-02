@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\User;
 use http\Exception\InvalidArgumentException;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\MethodNotAllowedHttpException;
 
@@ -50,7 +49,7 @@ class ApiController extends Controller
             // step 3 prepare answer
             $result['data'] = User::find()
                 ->where(['>', 'id', 3])
-                ->andWhere(['not like', 'email',  '%' .'test' . '%', false])
+                ->andWhere(['not like', 'email', '%' . 'test' . '%', false])
                 ->orderBy('name ASC')
                 ->all();
 

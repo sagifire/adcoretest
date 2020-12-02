@@ -20,7 +20,7 @@ class User extends ActiveRecord
         return [
             [['email', 'name'], 'required'],
             [['email', 'name'], 'string', 'min' => 3, 'max' => 255],
-            ['email','email'],
+            ['email', 'email'],
             ['colors', 'validateColor'],
             ['colors', 'convertTypes'],
             ['colors', 'each', 'rule' => ['validateColorItem']],
@@ -28,7 +28,8 @@ class User extends ActiveRecord
     }
 
     /** Convert colors count to int */
-    public function convertTypes(/* $attribute, $params */) {
+    public function convertTypes(/* $attribute, $params */)
+    {
         $colors = $this->colors;
         if (is_array($colors)) foreach ($colors as $index => &$color) {
             if (isset($color['count'])) {
@@ -39,7 +40,8 @@ class User extends ActiveRecord
     }
 
     /** Validate colors type */
-    public function validateColor($attribute, $params) {
+    public function validateColor($attribute, $params)
+    {
         $value = $this->{$attribute};
         if (!empty($value) && !is_array($value)) {
             $this->addError('colors', $attribute . ' must be an array.');
@@ -47,7 +49,8 @@ class User extends ActiveRecord
     }
 
     /** Validate colors each item attributes */
-    public function validateColorItem($attribute, $params, $context, $current) {
+    public function validateColorItem($attribute, $params, $context, $current)
+    {
         $colorModel = new Color();
         $colorModel->setAttributes($current);
         $colorModel->validate();
